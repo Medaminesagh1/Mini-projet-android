@@ -34,6 +34,7 @@ fun ActeurComposant(
     when (classeHauteur) {
         WindowHeightSizeClass.Medium -> {
             Surface(
+
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
