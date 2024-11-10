@@ -14,10 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.CoroutineExceptionHandler
 
 @Composable
 fun ActeurComposant(
@@ -26,15 +27,25 @@ fun ActeurComposant(
     viewModel: MainViewModel
 ) {
     val classeHauteur = classes.heightSizeClass
-    val acteurs by viewModel.acteurs.collectAsState()
-    LaunchedEffect(true) {
-        viewModel.acteurs_tendance()
+    val acteurs by viewModel.acteurs.collectAsState(initial = emptyList())
+
+    // Gestionnaire d'erreurs pour le coroutine scope
+    val errorHandler = CoroutineExceptionHandler { _, exception ->
+        println("Erreur lors du chargement des acteurs : ${exception.message}")
+    }
+
+    // Chargement des acteurs avec gestion des erreurs
+    LaunchedEffect(viewModel) {
+        try {
+            viewModel.acteurs_tendance()
+        } catch (e: Exception) {
+            println("Erreur lors de l'appel de acteurs_tendance: ${e.message}")
+        }
     }
 
     when (classeHauteur) {
         WindowHeightSizeClass.Medium -> {
             Surface(
-
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
@@ -46,25 +57,28 @@ fun ActeurComposant(
                         columns = GridCells.Fixed(2)
                     ) {
                         items(acteurs) { acteur ->
-                            CardActeur(acteur, navController, modifier = Modifier)
+                            acteur?.let {
+                                CardActeur(acteur, navController, modifier = Modifier)
+                            }
                         }
                     }
                 }
             }
         }
-            WindowHeightSizeClass.Compact -> {
-                androidx.compose.material3.Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        LazyVerticalGrid(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 5.dp),
-                            columns = GridCells.Fixed(3)
-                        ) {
-                            items(acteurs) { acteur ->
+        WindowHeightSizeClass.Compact -> {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    LazyVerticalGrid(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 5.dp),
+                        columns = GridCells.Fixed(3)
+                    ) {
+                        items(acteurs) { acteur ->
+                            acteur?.let {
                                 CardActeur(acteur, navController, modifier = Modifier)
                             }
                         }
@@ -73,6 +87,7 @@ fun ActeurComposant(
             }
         }
     }
+}
 
 @Composable
 fun CardActeur(acteur: Acteur, navController: NavController, modifier: Modifier) {
@@ -82,6 +97,6 @@ fun CardActeur(acteur: Acteur, navController: NavController, modifier: Modifier)
         titre = acteur.name,
         date = null,
         navController = navController,
-        modifier = Modifier
+        modifier = modifier // Utilise le `modifier` passé sans redéfinir
     )
 }
