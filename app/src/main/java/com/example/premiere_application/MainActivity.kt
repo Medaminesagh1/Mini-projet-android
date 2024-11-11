@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -42,14 +41,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val viewModel: MainViewModel by viewModels()
-        // recupérer viewModel : voir vidéo sur Retrofit (12min)
-
 
         setContent {
             Premiere_applicationTheme {
                 val windowSizeClass = calculateWindowSizeClass(this)
-                //Ecran(windowSizeClass)
-                // A surface container using the 'background' color from the theme
 
                 var text by remember { mutableStateOf("") }
                 var active by remember { mutableStateOf(false) }
@@ -68,9 +63,10 @@ class MainActivity : ComponentActivity() {
                 }
                 Scaffold(
                     topBar = {
-                        if(currentDestination?.route != "Profil"
-                            && currentDestination?.route !="FilmDetail/{filmId}"
-                            && currentDestination?.route !="SerieDetail/{serieId}") {
+                        if (currentDestination?.route != "Profil"
+                            && currentDestination?.route != "FilmDetail/{filmId}"
+                            && currentDestination?.route != "SerieDetail/{serieId}"
+                        ) {
                             SearchBar(
                                 leadingIcon = {
                                     Icon(
@@ -81,19 +77,10 @@ class MainActivity : ComponentActivity() {
                                 trailingIcon = {
                                     Icon(
                                         modifier = Modifier.clickable {
-                                            if(text.isNotEmpty()) {
+                                            if (text.isNotEmpty()) {
                                                 text = ""
-                                            }else{
+                                            } else {
                                                 active = false
-                                                /** Ca demande trop de ressources et ca crache
-                                                if(currentDestination?.route == "FilmsComposant"){
-                                                viewModel.films_tendance()
-                                                } else if(currentDestination?.route == "SeriesComposant"){
-                                                viewModel.series_tendance()
-                                                } else if(currentDestination?.route == "ActeursComposant"){
-                                                viewModel.acteurs_tendance()
-                                                }
-                                                 */
                                             }
                                         },
                                         imageVector = Icons.Default.Close,
@@ -124,53 +111,36 @@ class MainActivity : ComponentActivity() {
                                     Text(text = "Search")
                                 }
                             ) {
-                                historyFilms.forEach{
-                                    Row(modifier = Modifier.padding(all = 14.dp)){
+                                historyFilms.forEach {
+                                    Row(modifier = Modifier.padding(all = 14.dp)) {
                                         Icon(
                                             imageVector = Icons.Default.History,
                                             contentDescription = "icone historique",
                                             modifier = Modifier.padding(end = 10.dp)
                                         )
-                                        Text(text = it /**, modifier = modifier = Modifier.clickable { text = it }*/)
+                                        Text(text = it)
                                     }
                                 }
                             }
                         }
-
-
                     },
                     bottomBar = {
-                        if(currentDestination?.route != "Profil" && currentDestination?.route !="FilmDetail") {
+                        if (currentDestination?.route != "Profil" && currentDestination?.route != "FilmDetail") {
                             BottomNavigation() {
 
                                 BottomNavigationItem(
-                                    icon = {/**
-                                    Image(
-                                    painterResource(id = R.drawable.clap_bis),
-                                    contentDescription = "logo films",
-                                    )*/
+                                    icon = {
                                         Icon(
                                             imageVector = Icons.Default.Movie,
-                                            contentDescription = "icone search"
+                                            contentDescription = "icone films"
                                         )
                                     },
                                     label = { Text("Films") },
                                     selected = false,
                                     onClick = {
                                         navController.navigate("FilmsComposant")
-                                    })
-                                BottomNavigationItem(
-                                    icon = {
-                                        Image(
-                                            painterResource(id = R.drawable.acteur),
-                                            contentDescription = "logo acteurs",
-                                        )
-                                    },
-                                    label = { Text("Acteurs") },
-                                    selected = false,
-                                    onClick = {
-                                        navController.navigate("ActeursComposant")
-                                    })
+                                    }
+                                )
                                 BottomNavigationItem(
                                     icon = {
                                         Image(
@@ -182,8 +152,21 @@ class MainActivity : ComponentActivity() {
                                     selected = false,
                                     onClick = {
                                         navController.navigate("SeriesComposant")
-                                    })
-
+                                    }
+                                )
+                                BottomNavigationItem(
+                                    icon = {
+                                        Image(
+                                            painterResource(id = R.drawable.acteur),
+                                            contentDescription = "logo acteurs",
+                                        )
+                                    },
+                                    label = { Text("Acteurs") },
+                                    selected = false,
+                                    onClick = {
+                                        navController.navigate("ActeursComposant")
+                                    }
+                                )
                             }
                         }
                     }
@@ -216,7 +199,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("FilmDetail/{filmId}") {
-                            val id =it.arguments?.getString("filmId")?:""
+                            val id = it.arguments?.getString("filmId") ?: ""
                             FilmDetail(
                                 classes = windowSizeClass,
                                 navController = navController,
@@ -225,7 +208,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("SerieDetail/{serieId}") {
-                            val id =it.arguments?.getString("serieId")?:""
+                            val id = it.arguments?.getString("serieId") ?: ""
                             SerieDetail(
                                 classes = windowSizeClass,
                                 navController = navController,
@@ -239,5 +222,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
