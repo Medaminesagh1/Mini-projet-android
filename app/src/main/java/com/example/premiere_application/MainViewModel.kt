@@ -32,7 +32,7 @@ class MainViewModel(savedStateHandle : SavedStateHandle) : ViewModel(){
     val filmDetail = MutableStateFlow(FilmDetail())
     val serieDetail = MutableStateFlow(SerieDetail())
 
-    val apikey = "d936676cee467fd5bde1950ab82959ee"
+    val apikey = "d936676cee467fd5bde1950ab82959eee"
 
     val service = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
