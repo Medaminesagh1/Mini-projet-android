@@ -207,7 +207,7 @@ class MainActivity : ComponentActivity() {
                                 id
                             )
                         }
-                        composable("SerieDetail/{serieId}") {
+                         composable("SerieDetail/{serieId}") {
                             val id = it.arguments?.getString("serieId") ?: ""
                             SerieDetail(
                                 classes = windowSizeClass,
