@@ -32,18 +32,13 @@ class MainViewModel(savedStateHandle : SavedStateHandle) : ViewModel(){
     val filmDetail = MutableStateFlow(FilmDetail())
     val serieDetail = MutableStateFlow(SerieDetail())
 
-    val apikey = "d936676cee467fd5bde1950ab82959eee"
+    val apikey = "d936676cee467fd5bde1950ab82959ee"
 
     val service = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(TMDB_API::class.java)
-
-    // TODO : Si la liste des films est vide, le composant doit appeler la fonction
-    //  getFilmsInitiaux du ViewModel (et uniquement si elle est vide, sinon à chaque fois que le
-    //  composant sera rafraichi, il demandera le téléchargement de la liste, ce qui provoquera à
-    //  nouveau son rafraichissement, et donc une boucle infinie).
 
     fun films_tendance(){
         viewModelScope.launch {

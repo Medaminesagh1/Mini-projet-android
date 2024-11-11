@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                 val currentDestination = navBackStackEntry?.destination
 
                 var historyFilms = remember {
-                    mutableStateListOf("Big")
+                    mutableStateListOf("")
                 }
                 var historyActeurs = remember {
                     mutableStateListOf("")
