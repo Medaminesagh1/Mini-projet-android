@@ -67,88 +67,88 @@ class MainActivity : ComponentActivity() {
                     mutableStateListOf("")
                 }
                 Scaffold(
-                        topBar = {
-                            if(currentDestination?.route != "Profil"
-                                && currentDestination?.route !="FilmDetail/{filmId}"
-                                && currentDestination?.route !="SerieDetail/{serieId}") {
-                                SearchBar(
-                                    leadingIcon = {
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            contentDescription = "icone search"
-                                        )
-                                    },
-                                    trailingIcon = {
-                                        Icon(
-                                            modifier = Modifier.clickable {
-                                                if(text.isNotEmpty()) {
-                                                    text = ""
-                                                }else{
-                                                    active = false
-                                                    /** Ca demande trop de ressources et ca crache
-                                                    if(currentDestination?.route == "FilmsComposant"){
-                                                        viewModel.films_tendance()
-                                                    } else if(currentDestination?.route == "SeriesComposant"){
-                                                        viewModel.series_tendance()
-                                                    } else if(currentDestination?.route == "ActeursComposant"){
-                                                        viewModel.acteurs_tendance()
-                                                    }
-                                                    */
+                    topBar = {
+                        if(currentDestination?.route != "Profil"
+                            && currentDestination?.route !="FilmDetail/{filmId}"
+                            && currentDestination?.route !="SerieDetail/{serieId}") {
+                            SearchBar(
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = "icone search"
+                                    )
+                                },
+                                trailingIcon = {
+                                    Icon(
+                                        modifier = Modifier.clickable {
+                                            if(text.isNotEmpty()) {
+                                                text = ""
+                                            }else{
+                                                active = false
+                                                /** Ca demande trop de ressources et ca crache
+                                                if(currentDestination?.route == "FilmsComposant"){
+                                                viewModel.films_tendance()
+                                                } else if(currentDestination?.route == "SeriesComposant"){
+                                                viewModel.series_tendance()
+                                                } else if(currentDestination?.route == "ActeursComposant"){
+                                                viewModel.acteurs_tendance()
                                                 }
-                                            },
-                                            imageVector = Icons.Default.Close,
-                                            contentDescription = "icone close"
-                                        )
-                                    },
-                                    modifier = Modifier.fillMaxWidth(),
-                                    query = text,
-                                    onQueryChange = { text = it },
-                                    onSearch = {
-                                        if (currentDestination?.route == "FilmsComposant") {
-                                            historyFilms.add(text)
-                                            viewModel.films_recherche(it)
-                                            active = false
-                                        } else if (currentDestination?.route == "ActeursComposant") {
-                                            viewModel.acteurs_recherche(it)
-                                            historyActeurs.add(text)
-                                            active = false
-                                        } else if (currentDestination?.route == "SeriesComposant") {
-                                            viewModel.series_recherche(it)
-                                            historySeries.add(text)
-                                            active = false
-                                        }
-                                    },
-                                    active = active,
-                                    onActiveChange = { active = it },
-                                    placeholder = {
-                                        Text(text = "Search")
-                                    }
-                                ) {
-                                    historyFilms.forEach{
-                                        Row(modifier = Modifier.padding(all = 14.dp)){
-                                            Icon(
-                                                imageVector = Icons.Default.History,
-                                                contentDescription = "icone historique",
-                                                modifier = Modifier.padding(end = 10.dp)
-                                            )
-                                            Text(text = it /**, modifier = modifier = Modifier.clickable { text = it }*/)
+                                                 */
                                             }
-                                        }
+                                        },
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "icone close"
+                                    )
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                query = text,
+                                onQueryChange = { text = it },
+                                onSearch = {
+                                    if (currentDestination?.route == "FilmsComposant") {
+                                        historyFilms.add(text)
+                                        viewModel.films_recherche(it)
+                                        active = false
+                                    } else if (currentDestination?.route == "ActeursComposant") {
+                                        viewModel.acteurs_recherche(it)
+                                        historyActeurs.add(text)
+                                        active = false
+                                    } else if (currentDestination?.route == "SeriesComposant") {
+                                        viewModel.series_recherche(it)
+                                        historySeries.add(text)
+                                        active = false
+                                    }
+                                },
+                                active = active,
+                                onActiveChange = { active = it },
+                                placeholder = {
+                                    Text(text = "Search")
+                                }
+                            ) {
+                                historyFilms.forEach{
+                                    Row(modifier = Modifier.padding(all = 14.dp)){
+                                        Icon(
+                                            imageVector = Icons.Default.History,
+                                            contentDescription = "icone historique",
+                                            modifier = Modifier.padding(end = 10.dp)
+                                        )
+                                        Text(text = it /**, modifier = modifier = Modifier.clickable { text = it }*/)
                                     }
                                 }
+                            }
+                        }
 
 
-                        },
-                        bottomBar = {
-                            if(currentDestination?.route != "Profil" && currentDestination?.route !="FilmDetail") {
+                    },
+                    bottomBar = {
+                        if(currentDestination?.route != "Profil" && currentDestination?.route !="FilmDetail") {
                             BottomNavigation() {
 
                                 BottomNavigationItem(
                                     icon = {/**
-                                        Image(
-                                            painterResource(id = R.drawable.clap_bis),
-                                            contentDescription = "logo films",
-                                        )*/
+                                    Image(
+                                    painterResource(id = R.drawable.clap_bis),
+                                    contentDescription = "logo films",
+                                    )*/
                                         Icon(
                                             imageVector = Icons.Default.Movie,
                                             contentDescription = "icone search"
