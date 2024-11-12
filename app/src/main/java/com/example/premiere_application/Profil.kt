@@ -66,7 +66,7 @@ fun Ecran(classes: WindowSizeClass, navController: NavController) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Row() {
                             Image(
-                                painterResource(id = R.drawable.email),
+                                painterResource(id = R.drawable.icon_gmail),
                                 contentDescription = "Icone mail",
                                 modifier = Modifier
                                     .size(25.dp)
@@ -80,7 +80,7 @@ fun Ecran(classes: WindowSizeClass, navController: NavController) {
                         }
                         Row() {
                             Image(
-                                painterResource(id = R.drawable.linkedin),
+                                painterResource(id = R.drawable.icon_linkedin),
                                 contentDescription = "Icone linkedin",
                                 modifier = Modifier
                                     .size(25.dp)
@@ -124,10 +124,12 @@ fun Ecran(classes: WindowSizeClass, navController: NavController) {
 
                             Column{
                                 Row{
-                                    Icon(
-                                        imageVector = Icons.Default.Mail,
-                                        contentDescription = "icone mail",
-                                        modifier = Modifier.padding(start = 50.dp)
+                                    Image(
+                                        painterResource(id = R.drawable.icon_gmail),
+                                        contentDescription = "Icone mail",
+                                        modifier = Modifier
+                                            .size(25.dp)
+                                            .padding(bottom = 5.dp, end = 5.dp)
                                     )
                                     Text(
                                         text = "saghraoui.mohamedamine@gmail.com",
@@ -136,10 +138,12 @@ fun Ecran(classes: WindowSizeClass, navController: NavController) {
                                             .padding(start = 5.dp, top=1.dp)
                                     )}
                                 Row() {
-                                    Icon(
-                                        imageVector = Icons.Default.AlternateEmail,
-                                        contentDescription = "icone linkedin",
-                                        modifier = Modifier.padding(start = 50.dp)
+                                    Image(
+                                        painterResource(id = R.drawable.icon_linkedin),
+                                        contentDescription = "Icone linkedin",
+                                        modifier = Modifier
+                                            .size(25.dp)
+                                            .padding(end = 5.dp)
                                     )
                                     Text(
                                         text = "www.linkedin.com/in/amine-saghraoui-b22a36292",
