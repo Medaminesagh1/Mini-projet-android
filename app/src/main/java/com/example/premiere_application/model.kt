@@ -189,10 +189,10 @@ data class Acteurs(
 
 data class Acteur(
     val adult: Boolean = false,
-    val gender: Int = 0,
-    val id: Int = 0,
+    val gender: Int?,
+    val id: Int?,
     val known_for: List<ConnuPour> = listOf(),
-    val known_for_department: String = "",
+    val known_for_department: String?,
     val media_type: String = "",
     val name: String = "",
     val original_name: String = "",
