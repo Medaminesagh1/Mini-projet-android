@@ -167,6 +167,20 @@ class MainActivity : ComponentActivity() {
                                         navController.navigate("ActeursComposant")
                                     }
                                 )
+                                BottomNavigationItem(
+                                    icon = {
+                                        Image(
+                                            painterResource(id = R.drawable.examnen),
+                                            contentDescription = "logo examen",
+                                        )
+                                    },
+                                    label = { Text("composantExam") },
+                                    selected = false,
+                                    onClick = {
+                                        navController.navigate("composantExam")
+                                    }
+                                )
+
                             }
                         }
                     }
@@ -196,6 +210,11 @@ class MainActivity : ComponentActivity() {
                                 classes = windowSizeClass,
                                 navController = navController,
                                 viewModel = viewModel
+                            )
+                        }
+                        composable("composantExamen") {
+                            compasantExam(
+                                navController = navController,
                             )
                         }
                         composable("FilmDetail/{filmId}") {
