@@ -37,4 +37,9 @@ interface TMDB_API {
     @GET("tv/{serieId}?append_to_response=credits&language=fr")
     suspend fun distribution_serie(@Path("serieId") serieId : String?, @Query("api_key") api_key: String): SerieDetail
 
+    @GET("search/collection?language=fr")
+    suspend fun rechercherFilmsHorreur(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String = "horror"
+    ): ExamResponse
 }

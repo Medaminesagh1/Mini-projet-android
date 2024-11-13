@@ -28,6 +28,8 @@ class MainViewModel(savedStateHandle : SavedStateHandle) : ViewModel(){
     val films = MutableStateFlow<List<Film>>(listOf())
     val series = MutableStateFlow<List<Serie>>(listOf())
     val acteurs = MutableStateFlow<List<Acteur>>(listOf())
+    val examen = MutableStateFlow<List<Exam>>(listOf())
+
 
     val filmDetail = MutableStateFlow(FilmDetail())
     val serieDetail = MutableStateFlow(SerieDetail())
@@ -87,5 +89,12 @@ class MainViewModel(savedStateHandle : SavedStateHandle) : ViewModel(){
             serieDetail.value = service.distribution_serie(id, apikey)
         }
     }
+
+    fun rechercherFilmsHorreur(query: String) {
+        viewModelScope.launch {
+            examen.value = service.rechercherFilmsHorreur(apikey,query).results
+        }
+    }
+
 
 }
